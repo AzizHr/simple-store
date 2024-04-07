@@ -33,7 +33,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(UUID id) {
-
+    public void deleteById(UUID id) throws ItemNotFoundException {
+        if(categoryRepository.findById(id).isPresent())
+            categoryRepository.deleteById(id);
+        throw new ItemNotFoundException("No category was found with ID of "+id);
     }
 }
