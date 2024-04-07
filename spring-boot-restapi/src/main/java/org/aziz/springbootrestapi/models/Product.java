@@ -23,4 +23,6 @@ public class Product {
     private String type;
     @ManyToOne
     private Category category;
+    @ManyToOne
+    private Store store;
 }
