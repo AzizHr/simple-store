@@ -26,8 +26,6 @@ public class Product {
     private Category category;
     @OneToMany(mappedBy = "product")
     private List<Variant> variants;
-    @ManyToOne
-    private Store store;
     @OneToMany(mappedBy = "product")
     private List<ShoppingCartProduct> shoppingCarts;
 }
