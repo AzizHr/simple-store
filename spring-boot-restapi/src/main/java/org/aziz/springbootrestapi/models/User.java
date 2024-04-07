@@ -18,5 +18,5 @@ public abstract class User {
     private String email;
     private String password;
     private Role role;
-    private Address address; // I made a mistake in this commit message
+    private Address address; // I made a mistake in this commit message 2
 }
