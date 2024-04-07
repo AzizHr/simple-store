@@ -22,6 +22,6 @@ public abstract class User {
     private String email;
     private String password;
     private Role role;
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     private Address address;
 }
