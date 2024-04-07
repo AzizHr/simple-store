@@ -28,4 +28,6 @@ public class Product {
     private List<Variant> variants;
     @OneToMany(mappedBy = "product")
     private List<ShoppingCartProduct> shoppingCarts;
+    @OneToMany(mappedBy = "product")
+    private List<StoreProduct> stores;
 }
