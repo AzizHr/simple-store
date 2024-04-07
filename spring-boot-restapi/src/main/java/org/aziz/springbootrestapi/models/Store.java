@@ -20,6 +20,4 @@ public class Store {
     private UUID id;
     private String name;
     private String description;
-    @OneToMany(mappedBy = "store")
-    private List<Product> products;
 }
