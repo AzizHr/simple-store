@@ -1,5 +1,6 @@
 package org.aziz.springbootrestapi.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
