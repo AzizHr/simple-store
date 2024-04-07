@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -25,4 +27,6 @@ public class Product {
     private Category category;
     @ManyToOne
     private Store store;
+    @OneToMany(mappedBy = "product")
+    private List<ShoppingCartProduct> shoppingCarts;
 }
