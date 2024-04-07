@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aziz.springbootrestapi.enums.OrderStatus;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,4 +18,5 @@ public class Order {
     private LocalDate orderDate;
     private LocalDate deliveryDate;
     private double totalAmount;
+    private OrderStatus status;
 }
