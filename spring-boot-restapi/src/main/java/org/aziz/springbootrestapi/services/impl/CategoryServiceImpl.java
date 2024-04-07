@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public Category save(Category category) {
