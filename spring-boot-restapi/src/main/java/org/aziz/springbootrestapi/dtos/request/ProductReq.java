@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aziz.springbootrestapi.models.Variant;
+
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -18,4 +21,5 @@ public class ProductReq {
     private String description;
     private String type;
     private UUID categoryId;
+    private List<Variant> variants;
 }
