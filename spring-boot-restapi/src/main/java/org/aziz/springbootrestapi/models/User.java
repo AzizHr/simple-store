@@ -18,4 +18,5 @@ public abstract class User {
     private String email;
     private String password;
     private Role role;
+    private Address address;
 }
