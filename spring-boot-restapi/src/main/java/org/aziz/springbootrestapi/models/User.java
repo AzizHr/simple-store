@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public abstract class User {
     private UUID id;
     private String firstName;
     private String lastName;
