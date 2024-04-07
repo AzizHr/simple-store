@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDTO {
+public class ProductReq {
     private UUID id;
     private String name;
     private double price;
