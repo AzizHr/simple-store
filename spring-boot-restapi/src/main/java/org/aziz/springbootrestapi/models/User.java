@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aziz.springbootrestapi.enums.Role;
-
 import java.util.UUID;
 
 @Setter
