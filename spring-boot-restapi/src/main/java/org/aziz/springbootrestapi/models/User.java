@@ -22,5 +22,6 @@ public abstract class User {
     private String email;
     private String password;
     private Role role;
+    @OneToOne
     private Address address;
 }
