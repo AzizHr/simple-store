@@ -24,6 +24,8 @@ public class Product {
     private String type;
     @ManyToOne
     private Category category;
+    @OneToMany(mappedBy = "product")
+    private List<Variant> variants;
     @ManyToOne
     private Store store;
     @OneToMany(mappedBy = "product")
