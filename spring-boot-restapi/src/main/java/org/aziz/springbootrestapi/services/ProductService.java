@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
-    ProductRes save(ProductReq product);
-    ProductRes update(ProductReq product);
+    ProductRes save(ProductReq productReq);
+    ProductRes update(ProductReq productReq);
     ProductRes findById(UUID id);
     List<ProductRes> findAll();
     List<ProductRes> findByCategoryId(UUID categoryId);
