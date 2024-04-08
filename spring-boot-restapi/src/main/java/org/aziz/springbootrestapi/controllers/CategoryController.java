@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.models.Category;
 import org.aziz.springbootrestapi.services.CategoryService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,6 +31,11 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<Category> category(@PathVariable UUID id) throws ItemNotFoundException {
         return ResponseEntity.ok(categoryService.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Category>> categories() {
+        return ResponseEntity.ok(categoryService.findAll());
     }
 
 }
