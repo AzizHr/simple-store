@@ -22,4 +22,6 @@ public class Store {
     private String description;
     @OneToMany(mappedBy = "store")
     private List<StoreProduct> products;
+    @OneToOne
+    private Seller seller;
 }
