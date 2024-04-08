@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public interface CategoryService {
     Category save(Category category);
+    Category update(Category category);
     Category findById(UUID id) throws ItemNotFoundException;
     List<Category> findAll();
     void deleteById(UUID id) throws ItemNotFoundException;
