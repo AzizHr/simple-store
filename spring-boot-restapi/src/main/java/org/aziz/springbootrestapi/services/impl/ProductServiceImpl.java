@@ -41,7 +41,6 @@ public class ProductServiceImpl implements ProductService {
         if(productRepository.findById(id).isPresent())
             return modelMapper.map(productRepository.findById(id).get(), ProductRes.class);
         throw new ItemNotFoundException("No product was found with ID "+id);
-
     }
 
     @Override
@@ -55,7 +54,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(UUID id) {
-
+    public void deleteById(UUID id) throws ItemNotFoundException {
+        if(productRepository.findById(id).isPresent())
+            productRepository.deleteById(id);
+        throw new ItemNotFoundException("No product was found with ID "+id);
     }
 }

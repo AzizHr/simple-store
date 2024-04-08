@@ -15,5 +15,5 @@ public interface ProductService {
     ProductRes findById(UUID id) throws ItemNotFoundException;
     Page<ProductRes> findAll(Pageable pageable);
     Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable);
-    void deleteById(UUID id);
+    void deleteById(UUID id) throws ItemNotFoundException;
 }
