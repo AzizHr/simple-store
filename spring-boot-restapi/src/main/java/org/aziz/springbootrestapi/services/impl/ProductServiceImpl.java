@@ -23,29 +23,4 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productReq, Product.class);
         return modelMapper.map(productRepository.save(product), ProductRes.class);
     }
-
-    @Override
-    public ProductRes update(ProductReq productReq) {
-        return null;
-    }
-
-    @Override
-    public ProductRes findById(UUID id) {
-        return null;
-    }
-
-    @Override
-    public List<ProductRes> findAll() {
-        return List.of();
-    }
-
-    @Override
-    public List<ProductRes> findByCategoryId(UUID categoryId) {
-        return List.of();
-    }
-
-    @Override
-    public void deleteById(UUID id) {
-
-    }
 }
