@@ -21,6 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category update(Category category) throws ItemNotFoundException {
+        if(categoryRepository.findById(category.getId()).isPresent())
+            return categoryRepository.save(category);
+        throw new ItemNotFoundException("No category was found with ID "+category.getId());
+    }
+
+    @Override
     public Category findById(UUID id) throws ItemNotFoundException {
         if(categoryRepository.findById(id).isPresent())
             return categoryRepository.findById(id).get();
