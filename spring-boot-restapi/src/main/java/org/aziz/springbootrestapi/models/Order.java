@@ -22,6 +22,7 @@ public class Order {
     private LocalDate orderDate;
     private LocalDate deliveryDate;
     private double totalAmount;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @OneToOne(mappedBy = "order")
     private ShoppingCart shoppingCart;
