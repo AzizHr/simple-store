@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface ProductService {
     ProductRes save(ProductReq productReq);
     ProductRes update(ProductReq productReq) throws ItemNotFoundException;
-    ProductRes findById(UUID id);
+    ProductRes findById(UUID id) throws ItemNotFoundException;
     Page<ProductRes> findAll(Pageable pageable);
     Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable);
     void deleteById(UUID id);
