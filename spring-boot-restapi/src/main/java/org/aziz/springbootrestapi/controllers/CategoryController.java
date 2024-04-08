@@ -28,6 +28,12 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.save(category));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable UUID id) throws ItemNotFoundException {
+        categoryService.deleteById(id);
+        return ResponseEntity.ok("Category with ID: " + id + " deleted successfully.");
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Category> category(@PathVariable UUID id) throws ItemNotFoundException {
         return ResponseEntity.ok(categoryService.findById(id));
