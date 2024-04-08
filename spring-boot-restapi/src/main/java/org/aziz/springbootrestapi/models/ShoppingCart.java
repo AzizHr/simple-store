@@ -23,4 +23,6 @@ public class ShoppingCart {
     private List<ShoppingCartProduct> products;
     @OneToOne
     private Order order;
+    @OneToOne
+    private Customer customer;
 }
