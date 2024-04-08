@@ -9,10 +9,12 @@ import org.aziz.springbootrestapi.repositories.ProductRepository;
 import org.aziz.springbootrestapi.services.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +47,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductRes> findAll(Pageable pageable) {
-        return null;
+        Page<Product> productPage = productRepository.findAll(pageable);
+
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductRes.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
     }
 
     @Override
