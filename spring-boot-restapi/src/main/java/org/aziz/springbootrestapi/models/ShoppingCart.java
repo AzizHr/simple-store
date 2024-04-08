@@ -21,4 +21,6 @@ public class ShoppingCart {
     private String name;
     @OneToMany(mappedBy = "shoppingCart")
     private List<ShoppingCartProduct> products;
+    @OneToOne
+    private Order order;
 }
