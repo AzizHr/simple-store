@@ -24,8 +24,8 @@ public class CategoryController {
     }
 
     @PutMapping
-    public ResponseEntity<Category> update(@RequestBody Category category) {
-        return ResponseEntity.ok(categoryService.save(category));
+    public ResponseEntity<Category> update(@RequestBody Category category) throws ItemNotFoundException {
+        return ResponseEntity.ok(categoryService.update(category));
     }
 
     @DeleteMapping("/{id}")
