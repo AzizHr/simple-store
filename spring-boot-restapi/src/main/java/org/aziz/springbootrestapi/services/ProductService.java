@@ -13,6 +13,6 @@ public interface ProductService {
     ProductRes update(ProductReq productReq);
     ProductRes findById(UUID id);
     Page<ProductRes> findAll(Pageable pageable);
-    Page<ProductRes> findByCategoryId(UUID categoryId);
+    Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable);
     void deleteById(UUID id);
 }
