@@ -60,7 +60,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable) {
-        return null;
+        Page<Product> productPage = productRepository.findAllByCategoryId(categoryId, pageable);
+
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductRes.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
     }
 
     @Override
