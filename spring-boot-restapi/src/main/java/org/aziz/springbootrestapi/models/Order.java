@@ -24,6 +24,6 @@ public class Order {
     private double totalAmount;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    @OneToOne(mappedBy = "order")
+    @OneToOne
     private ShoppingCart shoppingCart;
 }
