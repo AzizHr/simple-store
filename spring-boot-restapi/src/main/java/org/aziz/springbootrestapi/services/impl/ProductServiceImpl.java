@@ -3,6 +3,7 @@ package org.aziz.springbootrestapi.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductReq;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
+import org.aziz.springbootrestapi.models.Product;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
 import org.aziz.springbootrestapi.services.ProductService;
 import org.modelmapper.ModelMapper;
@@ -18,12 +19,13 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ProductRes save(ProductReq product) {
-        return null;
+    public ProductRes save(ProductReq productReq) {
+        Product product = modelMapper.map(productReq, Product.class);
+        return modelMapper.map(productRepository.save(product), ProductRes.class);
     }
 
     @Override
-    public ProductRes update(ProductReq product) {
+    public ProductRes update(ProductReq productReq) {
         return null;
     }
 
