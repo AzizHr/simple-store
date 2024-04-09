@@ -20,6 +20,6 @@ public class ProductRes {
     private int quantity;
     private String description;
     private String type;
-    private Category category;
+    private CategoryRes category;
     private List<Variant> variants;
 }
