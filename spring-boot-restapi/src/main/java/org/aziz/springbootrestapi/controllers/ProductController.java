@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductReq;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
+import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Category;
 import org.aziz.springbootrestapi.services.ProductService;
 import org.springframework.data.domain.Page;
@@ -42,12 +43,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductRes>> products(Pageable pageable) {
+    public ResponseEntity<Page<ProductRes>> products(Pageable pageable) throws ListIsEmptyException {
         return ResponseEntity.ok(productService.findAll(pageable));
     }
 
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<Page<ProductRes>> products(@PathVariable UUID categoryId, Pageable pageable) {
-        return ResponseEntity.ok(productService.findByCategoryId(categoryId, pageable));
+    public ResponseEntity<Page<ProductRes>> products(@PathVariable UUID categoryId, Pageable pageable) throws ListIsEmptyException {
+        return ResponseEntity.ok(productService.findAllByCategoryId(categoryId, pageable));
     }
 }
