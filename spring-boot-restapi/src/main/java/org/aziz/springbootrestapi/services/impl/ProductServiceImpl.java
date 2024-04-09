@@ -2,7 +2,9 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductReq;
+import org.aziz.springbootrestapi.dtos.response.CategoryRes;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
+import org.aziz.springbootrestapi.dtos.response.VariantRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Product;
@@ -39,8 +41,12 @@ public class ProductServiceImpl implements ProductService {
             for(Variant variant : variants) {
                 variant.setProduct(savedProduct);
             }
-            variantRepository.saveAll(variants);
-            return modelMapper.map(savedProduct, ProductRes.class);
+            List<Variant> savedVariants = variantRepository.saveAll(variants);
+            ProductRes productRes = modelMapper.map(savedProduct, ProductRes.class);
+            productRes.setVariants(savedVariants.stream()
+                    .map(variant -> modelMapper.map(variant, VariantRes.class))
+                    .collect(Collectors.toList()));
+            return productRes;
         }
         throw new ItemNotFoundException("No category was found with ID: "+productReq.getCategoryId());
     }
