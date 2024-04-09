@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderReq {
+public class OrderRequest {
     private UUID id;
     private LocalDate orderDate;
     private LocalDate deliveryDate;
