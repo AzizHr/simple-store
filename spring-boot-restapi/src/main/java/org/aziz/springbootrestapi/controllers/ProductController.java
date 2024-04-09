@@ -9,6 +9,8 @@ import org.aziz.springbootrestapi.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -24,5 +26,11 @@ public class ProductController {
     @PutMapping
     public ResponseEntity<ProductRes> update(@RequestBody ProductReq productReq) throws ItemNotFoundException {
         return ResponseEntity.ok(productService.update(productReq));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> update(@PathVariable UUID id) throws ItemNotFoundException {
+        productService.deleteById(id);
+        return ResponseEntity.ok("Product with ID: " + id + " deleted successfully.");
     }
 }
