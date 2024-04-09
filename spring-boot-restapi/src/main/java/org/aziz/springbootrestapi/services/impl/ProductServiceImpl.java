@@ -1,8 +1,7 @@
 package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.aziz.springbootrestapi.dtos.request.ProductReq;
-import org.aziz.springbootrestapi.dtos.response.CategoryRes;
+import org.aziz.springbootrestapi.dtos.request.ProductRequest;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.dtos.response.VariantRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
@@ -32,11 +31,11 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ProductRes save(ProductReq productReq) throws ItemNotFoundException {
-        Product product = modelMapper.map(productReq, Product.class);
-        List<Variant> variants = productReq.getVariants();
-        if(categoryRepository.findById(productReq.getCategoryId()).isPresent()) {
-            product.setCategory(categoryRepository.findById(productReq.getCategoryId()).get());
+    public ProductRes save(ProductRequest productRequest) throws ItemNotFoundException {
+        Product product = modelMapper.map(productRequest, Product.class);
+        List<Variant> variants = productRequest.getVariants();
+        if(categoryRepository.findById(productRequest.getCategoryId()).isPresent()) {
+            product.setCategory(categoryRepository.findById(productRequest.getCategoryId()).get());
             Product savedProduct = productRepository.save(product);
             for(Variant variant : variants) {
                 variant.setProduct(savedProduct);
@@ -48,16 +47,16 @@ public class ProductServiceImpl implements ProductService {
                     .collect(Collectors.toList()));
             return productRes;
         }
-        throw new ItemNotFoundException("No category was found with ID: "+productReq.getCategoryId());
+        throw new ItemNotFoundException("No category was found with ID: "+ productRequest.getCategoryId());
     }
 
     @Override
-    public ProductRes update(ProductReq productReq) throws ItemNotFoundException {
-        if(productRepository.findById(productReq.getId()).isPresent()) {
-            Product product = modelMapper.map(productReq, Product.class);
+    public ProductRes update(ProductRequest productRequest) throws ItemNotFoundException {
+        if(productRepository.findById(productRequest.getId()).isPresent()) {
+            Product product = modelMapper.map(productRequest, Product.class);
             return modelMapper.map(productRepository.save(product), ProductRes.class);
         }
-        throw new ItemNotFoundException("No product was found with ID "+productReq.getId());
+        throw new ItemNotFoundException("No product was found with ID "+ productRequest.getId());
     }
 
     @Override

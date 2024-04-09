@@ -14,7 +14,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductReq {
+public class ProductRequest {
     private UUID id;
     @NotEmpty(message = "المرجو إضافة إسم المنتج")
     private String name;

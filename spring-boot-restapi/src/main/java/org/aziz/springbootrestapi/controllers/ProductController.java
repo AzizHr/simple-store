@@ -1,11 +1,10 @@
 package org.aziz.springbootrestapi.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.aziz.springbootrestapi.dtos.request.ProductReq;
+import org.aziz.springbootrestapi.dtos.request.ProductRequest;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
-import org.aziz.springbootrestapi.models.Category;
 import org.aziz.springbootrestapi.services.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,13 +21,13 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductRes> save(@RequestBody ProductReq productReq) throws ItemNotFoundException {
-        return ResponseEntity.ok(productService.save(productReq));
+    public ResponseEntity<ProductRes> save(@RequestBody ProductRequest productRequest) throws ItemNotFoundException {
+        return ResponseEntity.ok(productService.save(productRequest));
     }
 
     @PutMapping
-    public ResponseEntity<ProductRes> update(@RequestBody ProductReq productReq) throws ItemNotFoundException {
-        return ResponseEntity.ok(productService.update(productReq));
+    public ResponseEntity<ProductRes> update(@RequestBody ProductRequest productRequest) throws ItemNotFoundException {
+        return ResponseEntity.ok(productService.update(productRequest));
     }
 
     @DeleteMapping("/{id}")
