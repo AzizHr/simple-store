@@ -1,7 +1,5 @@
 package org.aziz.springbootrestapi.dtos.response;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderRes {
+public class OrderResponse {
     private UUID id;
     private LocalDate orderDate;
     private LocalDate deliveryDate;
