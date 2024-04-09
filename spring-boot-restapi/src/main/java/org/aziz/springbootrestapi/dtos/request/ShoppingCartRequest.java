@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingCartReq {
+public class ShoppingCartRequest {
     private UUID id;
     private String name;
     private UUID customerId;
