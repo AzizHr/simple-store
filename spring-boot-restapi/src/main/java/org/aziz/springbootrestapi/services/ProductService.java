@@ -14,7 +14,7 @@ public interface ProductService {
     ProductRes save(ProductReq productReq);
     ProductRes update(ProductReq productReq) throws ItemNotFoundException;
     ProductRes findById(UUID id) throws ItemNotFoundException;
-    Page<ProductRes> findAll(Pageable pageable);
+    Page<ProductRes> findAll(Pageable pageable) throws ListIsEmptyException;
     Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException;
     void deleteById(UUID id) throws ItemNotFoundException;
 }

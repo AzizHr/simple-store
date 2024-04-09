@@ -47,9 +47,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductRes> findAll(Pageable pageable) {
+    public Page<ProductRes> findAll(Pageable pageable) throws ListIsEmptyException {
         Page<Product> productPage = productRepository.findAll(pageable);
 
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
         return new PageImpl<>(
                 productPage.getContent().stream()
                         .map(product -> modelMapper.map(product, ProductRes.class))
