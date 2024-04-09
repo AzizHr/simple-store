@@ -35,11 +35,8 @@ public class ProductServiceImpl implements ProductService {
         List<Variant> variants = productReq.getVariants();
         if(categoryRepository.findById(productReq.getId()).isPresent()) {
             product.setCategory(categoryRepository.findById(productReq.getId()).get());
-            Product savedProduct = productRepository.save(product);
-            if(!variants.isEmpty()) {
-                variantRepository.saveAll(variants);
-            }
-            return modelMapper.map(savedProduct, ProductRes.class);
+            product.setVariants(variants);
+            return modelMapper.map(productRepository.save(product), ProductRes.class);
         }
         throw new ItemNotFoundException("No category was found with ID: "+productReq.getCategoryId());
     }
