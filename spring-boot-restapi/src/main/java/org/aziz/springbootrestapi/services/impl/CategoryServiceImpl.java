@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +47,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         if(categories.isEmpty())
             throw new ListIsEmptyException("No categories found");
-        return Collections.singletonList(modelMapper.map(categories, CategoryRes.class));
+        return categories.stream()
+                .map(category -> modelMapper.map(category, CategoryRes.class))
+                .collect(Collectors.toList());
     }
 
     @Override
