@@ -45,4 +45,9 @@ public class ProductController {
     public ResponseEntity<Page<ProductRes>> products(Pageable pageable) {
         return ResponseEntity.ok(productService.findAll(pageable));
     }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<Page<ProductRes>> products(@PathVariable UUID categoryId, Pageable pageable) {
+        return ResponseEntity.ok(productService.findByCategoryId(categoryId, pageable));
+    }
 }
