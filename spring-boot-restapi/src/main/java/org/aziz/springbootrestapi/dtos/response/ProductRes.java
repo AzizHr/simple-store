@@ -21,5 +21,5 @@ public class ProductRes {
     private String description;
     private String type;
     private CategoryRes category;
-    private List<Variant> variants;
+    private List<VariantRes> variants;
 }
