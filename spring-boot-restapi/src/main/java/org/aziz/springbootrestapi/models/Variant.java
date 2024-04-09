@@ -18,6 +18,6 @@ public class Variant {
     private UUID id;
     private String color;
     private String imageUrl;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 }
