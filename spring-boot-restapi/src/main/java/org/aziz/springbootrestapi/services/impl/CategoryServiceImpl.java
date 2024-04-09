@@ -2,6 +2,7 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
+import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Category;
 import org.aziz.springbootrestapi.repositories.CategoryRepository;
 import org.aziz.springbootrestapi.services.CategoryService;
@@ -35,8 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public List<Category> findAll() throws ListIsEmptyException {
+        List<Category> categories = categoryRepository.findAll();
+
+        if(categories.isEmpty())
+            throw new ListIsEmptyException("No categories found");
+        return categories;
     }
 
     @Override
