@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryRes {
+public class CategoryResponse {
     private UUID id;
     private String name;
     private String description;

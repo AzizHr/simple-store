@@ -1,7 +1,7 @@
 package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.aziz.springbootrestapi.dtos.response.CategoryRes;
+import org.aziz.springbootrestapi.dtos.response.CategoryResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Category;
@@ -10,7 +10,6 @@ import org.aziz.springbootrestapi.services.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,13 +41,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryRes> findAll() throws ListIsEmptyException {
+    public List<CategoryResponse> findAll() throws ListIsEmptyException {
         List<Category> categories = categoryRepository.findAll();
 
         if(categories.isEmpty())
             throw new ListIsEmptyException("No categories found");
         return categories.stream()
-                .map(category -> modelMapper.map(category, CategoryRes.class))
+                .map(category -> modelMapper.map(category, CategoryResponse.class))
                 .collect(Collectors.toList());
     }
 

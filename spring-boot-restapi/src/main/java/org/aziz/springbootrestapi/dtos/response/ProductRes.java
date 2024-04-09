@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.aziz.springbootrestapi.models.Category;
-import org.aziz.springbootrestapi.models.Variant;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +19,6 @@ public class ProductRes {
     private int quantity;
     private String description;
     private String type;
-    private CategoryRes category;
+    private CategoryResponse category;
     private List<VariantRes> variants;
 }
