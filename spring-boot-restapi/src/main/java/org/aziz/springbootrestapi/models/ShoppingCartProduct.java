@@ -16,6 +16,7 @@ public class ShoppingCartProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(columnDefinition = "INT DEFAULT 1")
     private int quantity;
     @ManyToOne()
     private ShoppingCart shoppingCart;
