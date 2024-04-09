@@ -33,4 +33,9 @@ public class ProductController {
         productService.deleteById(id);
         return ResponseEntity.ok("Product with ID: " + id + " deleted successfully.");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductRes> product(@PathVariable UUID id) throws ItemNotFoundException {
+        return ResponseEntity.ok(productService.findById(id));
+    }
 }
