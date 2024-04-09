@@ -22,7 +22,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductRes> save(@RequestBody ProductReq productReq) {
+    public ResponseEntity<ProductRes> save(@RequestBody ProductReq productReq) throws ItemNotFoundException {
         return ResponseEntity.ok(productService.save(productReq));
     }
 
