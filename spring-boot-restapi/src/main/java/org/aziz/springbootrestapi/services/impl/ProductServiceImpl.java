@@ -6,8 +6,10 @@ import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Product;
+import org.aziz.springbootrestapi.models.Variant;
 import org.aziz.springbootrestapi.repositories.CategoryRepository;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
+import org.aziz.springbootrestapi.repositories.VariantRepository;
 import org.aziz.springbootrestapi.services.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -24,14 +26,20 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final VariantRepository variantRepository;
     private final ModelMapper modelMapper;
 
     @Override
     public ProductRes save(ProductReq productReq) throws ItemNotFoundException {
         Product product = modelMapper.map(productReq, Product.class);
+        List<Variant> variants = productReq.getVariants();
         if(categoryRepository.findById(productReq.getId()).isPresent()) {
             product.setCategory(categoryRepository.findById(productReq.getId()).get());
-            return modelMapper.map(productRepository.save(product), ProductRes.class);
+            Product savedProduct = productRepository.save(product);
+            if(!variants.isEmpty()) {
+                variantRepository.saveAll(variants);
+            }
+            return modelMapper.map(savedProduct, ProductRes.class);
         }
         throw new ItemNotFoundException("No category was found with ID: "+productReq.getCategoryId());
     }
