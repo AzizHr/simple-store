@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
-    ProductRes save(ProductReq productReq);
+    ProductRes save(ProductReq productReq) throws ItemNotFoundException;
     ProductRes update(ProductReq productReq) throws ItemNotFoundException;
     ProductRes findById(UUID id) throws ItemNotFoundException;
     Page<ProductRes> findAll(Pageable pageable) throws ListIsEmptyException;

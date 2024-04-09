@@ -6,6 +6,7 @@ import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Product;
+import org.aziz.springbootrestapi.repositories.CategoryRepository;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
 import org.aziz.springbootrestapi.services.ProductService;
 import org.modelmapper.ModelMapper;
@@ -22,12 +23,17 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public ProductRes save(ProductReq productReq) {
+    public ProductRes save(ProductReq productReq) throws ItemNotFoundException {
         Product product = modelMapper.map(productReq, Product.class);
-        return modelMapper.map(productRepository.save(product), ProductRes.class);
+        if(categoryRepository.findById(productReq.getId()).isPresent()) {
+            product.setCategory(categoryRepository.findById(productReq.getId()).get());
+            return modelMapper.map(productRepository.save(product), ProductRes.class);
+        }
+        throw new ItemNotFoundException("No category was found with ID: "+productReq.getCategoryId());
     }
 
     @Override
