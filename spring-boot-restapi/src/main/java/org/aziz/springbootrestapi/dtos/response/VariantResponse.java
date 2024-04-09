@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VariantRes {
+public class VariantResponse {
     private UUID id;
     private String color;
     private String imageUrl;

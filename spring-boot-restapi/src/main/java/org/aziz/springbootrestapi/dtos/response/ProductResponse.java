@@ -20,5 +20,5 @@ public class ProductResponse {
     private String description;
     private String type;
     private CategoryResponse category;
-    private List<VariantRes> variants;
+    private List<VariantResponse> variants;
 }

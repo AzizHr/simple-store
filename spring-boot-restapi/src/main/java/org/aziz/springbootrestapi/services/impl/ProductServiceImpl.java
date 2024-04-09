@@ -3,7 +3,7 @@ package org.aziz.springbootrestapi.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductRequest;
 import org.aziz.springbootrestapi.dtos.response.ProductResponse;
-import org.aziz.springbootrestapi.dtos.response.VariantRes;
+import org.aziz.springbootrestapi.dtos.response.VariantResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Product;
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
             List<Variant> savedVariants = variantRepository.saveAll(variants);
             ProductResponse productResponse = modelMapper.map(savedProduct, ProductResponse.class);
             productResponse.setVariants(savedVariants.stream()
-                    .map(variant -> modelMapper.map(variant, VariantRes.class))
+                    .map(variant -> modelMapper.map(variant, VariantResponse.class))
                     .collect(Collectors.toList()));
             return productResponse;
         }
