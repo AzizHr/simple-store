@@ -6,6 +6,8 @@ import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.models.Category;
 import org.aziz.springbootrestapi.services.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +39,10 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductRes> product(@PathVariable UUID id) throws ItemNotFoundException {
         return ResponseEntity.ok(productService.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ProductRes>> products(Pageable pageable) {
+        return ResponseEntity.ok(productService.findAll(pageable));
     }
 }
