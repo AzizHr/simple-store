@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductRes save(ProductReq productReq) throws ItemNotFoundException {
         Product product = modelMapper.map(productReq, Product.class);
         List<Variant> variants = productReq.getVariants();
-        if(categoryRepository.findById(productReq.getId()).isPresent()) {
+        if(categoryRepository.findById(productReq.getCategoryId()).isPresent()) {
             product.setCategory(categoryRepository.findById(productReq.getId()).get());
             product.setVariants(variants);
             return modelMapper.map(productRepository.save(product), ProductRes.class);
