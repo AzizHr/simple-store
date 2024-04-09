@@ -1,6 +1,7 @@
 package org.aziz.springbootrestapi.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.aziz.springbootrestapi.dtos.response.CategoryRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Category;
@@ -39,7 +40,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> categories() throws ListIsEmptyException {
+    public ResponseEntity<List<CategoryRes>> categories() throws ListIsEmptyException {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
