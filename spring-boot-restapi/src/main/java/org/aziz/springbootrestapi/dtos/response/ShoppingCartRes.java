@@ -20,5 +20,5 @@ public class ShoppingCartRes {
     private UUID id;
     private String name;
     private List<ProductRes> products;
-    private Order order;
+    private OrderRes order;
 }
