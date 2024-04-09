@@ -3,6 +3,7 @@ package org.aziz.springbootrestapi.services;
 import org.aziz.springbootrestapi.dtos.request.ProductReq;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
+import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,6 +15,6 @@ public interface ProductService {
     ProductRes update(ProductReq productReq) throws ItemNotFoundException;
     ProductRes findById(UUID id) throws ItemNotFoundException;
     Page<ProductRes> findAll(Pageable pageable);
-    Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable);
+    Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException;
     void deleteById(UUID id) throws ItemNotFoundException;
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductReq;
 import org.aziz.springbootrestapi.dtos.response.ProductRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
+import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.models.Product;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
 import org.aziz.springbootrestapi.services.ProductService;
@@ -59,9 +60,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable) {
+    public Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException {
         Page<Product> productPage = productRepository.findAllByCategoryId(categoryId, pageable);
 
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
         return new PageImpl<>(
                 productPage.getContent().stream()
                         .map(product -> modelMapper.map(product, ProductRes.class))
