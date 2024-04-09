@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productReq, Product.class);
         List<Variant> variants = productReq.getVariants();
         if(categoryRepository.findById(productReq.getCategoryId()).isPresent()) {
-            product.setCategory(categoryRepository.findById(productReq.getId()).get());
+            product.setCategory(categoryRepository.findById(productReq.getCategoryId()).get());
             product.setVariants(variants);
             return modelMapper.map(productRepository.save(product), ProductRes.class);
         }
