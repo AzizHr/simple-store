@@ -2,7 +2,7 @@ package org.aziz.springbootrestapi.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductRequest;
-import org.aziz.springbootrestapi.dtos.response.ProductRes;
+import org.aziz.springbootrestapi.dtos.response.ProductResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
 import org.aziz.springbootrestapi.services.ProductService;
@@ -21,12 +21,12 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductRes> save(@RequestBody ProductRequest productRequest) throws ItemNotFoundException {
+    public ResponseEntity<ProductResponse> save(@RequestBody ProductRequest productRequest) throws ItemNotFoundException {
         return ResponseEntity.ok(productService.save(productRequest));
     }
 
     @PutMapping
-    public ResponseEntity<ProductRes> update(@RequestBody ProductRequest productRequest) throws ItemNotFoundException {
+    public ResponseEntity<ProductResponse> update(@RequestBody ProductRequest productRequest) throws ItemNotFoundException {
         return ResponseEntity.ok(productService.update(productRequest));
     }
 
@@ -37,17 +37,17 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductRes> product(@PathVariable UUID id) throws ItemNotFoundException {
+    public ResponseEntity<ProductResponse> product(@PathVariable UUID id) throws ItemNotFoundException {
         return ResponseEntity.ok(productService.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductRes>> products(Pageable pageable) throws ListIsEmptyException {
+    public ResponseEntity<Page<ProductResponse>> products(Pageable pageable) throws ListIsEmptyException {
         return ResponseEntity.ok(productService.findAll(pageable));
     }
 
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<Page<ProductRes>> products(@PathVariable UUID categoryId, Pageable pageable) throws ListIsEmptyException {
+    public ResponseEntity<Page<ProductResponse>> products(@PathVariable UUID categoryId, Pageable pageable) throws ListIsEmptyException {
         return ResponseEntity.ok(productService.findAllByCategoryId(categoryId, pageable));
     }
 }

@@ -2,7 +2,7 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductRequest;
-import org.aziz.springbootrestapi.dtos.response.ProductRes;
+import org.aziz.springbootrestapi.dtos.response.ProductResponse;
 import org.aziz.springbootrestapi.dtos.response.VariantRes;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ProductRes save(ProductRequest productRequest) throws ItemNotFoundException {
+    public ProductResponse save(ProductRequest productRequest) throws ItemNotFoundException {
         Product product = modelMapper.map(productRequest, Product.class);
         List<Variant> variants = productRequest.getVariants();
         if(categoryRepository.findById(productRequest.getCategoryId()).isPresent()) {
@@ -41,40 +41,40 @@ public class ProductServiceImpl implements ProductService {
                 variant.setProduct(savedProduct);
             }
             List<Variant> savedVariants = variantRepository.saveAll(variants);
-            ProductRes productRes = modelMapper.map(savedProduct, ProductRes.class);
-            productRes.setVariants(savedVariants.stream()
+            ProductResponse productResponse = modelMapper.map(savedProduct, ProductResponse.class);
+            productResponse.setVariants(savedVariants.stream()
                     .map(variant -> modelMapper.map(variant, VariantRes.class))
                     .collect(Collectors.toList()));
-            return productRes;
+            return productResponse;
         }
         throw new ItemNotFoundException("No category was found with ID: "+ productRequest.getCategoryId());
     }
 
     @Override
-    public ProductRes update(ProductRequest productRequest) throws ItemNotFoundException {
+    public ProductResponse update(ProductRequest productRequest) throws ItemNotFoundException {
         if(productRepository.findById(productRequest.getId()).isPresent()) {
             Product product = modelMapper.map(productRequest, Product.class);
-            return modelMapper.map(productRepository.save(product), ProductRes.class);
+            return modelMapper.map(productRepository.save(product), ProductResponse.class);
         }
         throw new ItemNotFoundException("No product was found with ID "+ productRequest.getId());
     }
 
     @Override
-    public ProductRes findById(UUID id) throws ItemNotFoundException {
+    public ProductResponse findById(UUID id) throws ItemNotFoundException {
         if(productRepository.findById(id).isPresent())
-            return modelMapper.map(productRepository.findById(id).get(), ProductRes.class);
+            return modelMapper.map(productRepository.findById(id).get(), ProductResponse.class);
         throw new ItemNotFoundException("No product was found with ID "+id);
     }
 
     @Override
-    public Page<ProductRes> findAll(Pageable pageable) throws ListIsEmptyException {
+    public Page<ProductResponse> findAll(Pageable pageable) throws ListIsEmptyException {
         Page<Product> productPage = productRepository.findAll(pageable);
 
         if(productPage.getContent().isEmpty())
             throw new ListIsEmptyException("No products found");
         return new PageImpl<>(
                 productPage.getContent().stream()
-                        .map(product -> modelMapper.map(product, ProductRes.class))
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
                         .collect(Collectors.toList()),
                 productPage.getPageable(),
                 productPage.getTotalElements()
@@ -82,14 +82,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductRes> findAllByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException {
+    public Page<ProductResponse> findAllByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException {
         Page<Product> productPage = productRepository.findAllByCategoryId(categoryId, pageable);
 
         if(productPage.getContent().isEmpty())
             throw new ListIsEmptyException("No products found");
         return new PageImpl<>(
                 productPage.getContent().stream()
-                        .map(product -> modelMapper.map(product, ProductRes.class))
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
                         .collect(Collectors.toList()),
                 productPage.getPageable(),
                 productPage.getTotalElements()

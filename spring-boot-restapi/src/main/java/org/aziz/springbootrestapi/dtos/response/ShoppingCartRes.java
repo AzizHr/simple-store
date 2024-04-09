@@ -14,6 +14,6 @@ import java.util.UUID;
 public class ShoppingCartRes {
     private UUID id;
     private String name;
-    private List<ProductRes> products;
+    private List<ProductResponse> products;
     private OrderResponse order;
 }
