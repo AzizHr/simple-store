@@ -24,7 +24,7 @@ public class Product {
     private String type;
     @ManyToOne
     private Category category;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Variant> variants;
     @OneToMany(mappedBy = "product")
     private List<ShoppingCartProduct> shoppingCarts;
