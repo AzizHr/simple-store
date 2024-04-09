@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductRes> findByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException {
+    public Page<ProductRes> findAllByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException {
         Page<Product> productPage = productRepository.findAllByCategoryId(categoryId, pageable);
 
         if(productPage.getContent().isEmpty())
