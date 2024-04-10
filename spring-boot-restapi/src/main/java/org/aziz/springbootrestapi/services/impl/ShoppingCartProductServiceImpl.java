@@ -38,5 +38,6 @@ public class ShoppingCartProductServiceImpl implements ShoppingCartProductServic
     @Override
     public String removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) {
         shoppingCartProductRepository.delete(modelMapper.map(shoppingCartProductRequest, ShoppingCartProduct.class));
+        return "";
     }
 }

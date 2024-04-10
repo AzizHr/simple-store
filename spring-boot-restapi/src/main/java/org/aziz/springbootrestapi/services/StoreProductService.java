@@ -1,8 +1,8 @@
 package org.aziz.springbootrestapi.services;
 
-import org.aziz.springbootrestapi.models.StoreProduct;
+import org.aziz.springbootrestapi.dtos.request.StoreProductRequest;
 
 public interface StoreProductService {
-    String addProductToStore(StoreProduct storeProduct);
-    String removeProductFromStore(StoreProduct storeProduct);
+    String addProductToStore(StoreProductRequest storeProductRequest);
+    String removeProductFromStore(StoreProductRequest storeProductRequest);
 }
