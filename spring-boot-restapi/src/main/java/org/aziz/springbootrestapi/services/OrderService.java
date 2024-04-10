@@ -6,5 +6,5 @@ import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 
 public interface OrderService {
     OrderResponse save(OrderRequest orderRequest) throws ItemNotFoundException;
-    OrderResponse update(OrderRequest orderRequest);
+    OrderResponse update(OrderRequest orderRequest) throws ItemNotFoundException;
 }

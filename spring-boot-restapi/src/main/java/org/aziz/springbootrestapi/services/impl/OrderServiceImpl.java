@@ -39,7 +39,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponse update(OrderRequest orderRequest) {
-        return null;
+    public OrderResponse update(OrderRequest orderRequest) throws ItemNotFoundException {
+        if(orderRepository.findById(orderRequest.getId()).isPresent()) {
+            Order order = modelMapper.map(orderRequest, Order.class);
+            order.setShoppingCart(shoppingCartRepository.findById(
+                    orderRequest.getShoppingCartId()
+            ).orElseThrow(()
+                    -> new ItemNotFoundException(
+                    "No shoppingCart was found with ID: "+orderRequest.getShoppingCartId()
+            )));
+
+            return modelMapper.map(orderRepository.save(order), OrderResponse.class);
+        }
+        throw new ItemNotFoundException("No order was found with ID: "+orderRequest.getId());
     }
 }
