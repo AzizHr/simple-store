@@ -21,9 +21,4 @@ public class ShoppingCartProductServiceImpl implements ShoppingCartProductServic
     public String removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) {
         return "";
     }
-
-    @Override
-    public String updateQuantity(ShoppingCartProductRequest shoppingCartProductRequest) {
-        return "";
-    }
 }
