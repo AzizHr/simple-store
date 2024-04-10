@@ -1,8 +1,8 @@
 package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.aziz.springbootrestapi.dtos.request.StoreProductRequest;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
-import org.aziz.springbootrestapi.models.ShoppingCartProduct;
 import org.aziz.springbootrestapi.models.StoreProduct;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
 import org.aziz.springbootrestapi.repositories.StoreProductRepository;
@@ -21,22 +21,23 @@ public class StoreProductServiceImpl implements StoreProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public String addProductToStore(StoreProduct storeProduct) {
-        StoreProduct storeProduct1 = modelMapper.map(shoppingCartProductRequest, ShoppingCartProduct.class);
+    public String addProductToStore(StoreProductRequest storeProductRequest) throws ItemNotFoundException {
+        StoreProduct storeProduct = modelMapper.map(storeProductRequest, StoreProduct.class);
 
-        shoppingCartProduct.setShoppingCart(shoppingCartRepository.findById(
-                shoppingCartProductRequest.getShoppingCartId()
-        ).orElseThrow(() -> new ItemNotFoundException("ShoppingCart was not found with ID: "+ shoppingCartProductRequest.getShoppingCartId())));
+        storeProduct.setStore(storeRepository.findById(
+                storeProductRequest.getStoreId()
+        ).orElseThrow(() -> new ItemNotFoundException("Store was not found with ID: "+ storeProductRequest.getStoreId())));
 
-        shoppingCartProduct.setProduct(productRepository.findById(
-                shoppingCartProductRequest.getProductId()
-        ).orElseThrow(() -> new ItemNotFoundException("Product was not found with ID: "+ shoppingCartProductRequest.getProductId())));
+        storeProduct.setProduct(productRepository.findById(
+                storeProductRequest.getProductId()
+        ).orElseThrow(() -> new ItemNotFoundException("Product was not found with ID: "+ storeProductRequest.getProductId())));
 
-        return modelMapper.map(shoppingCartProductRepository.save(shoppingCartProduct), String.class);
+        return modelMapper.map(storeProductRepository.save(storeProduct), String.class);
     }
 
     @Override
-    public String removeProductFromStore(StoreProduct storeProduct) {
+    public String removeProductFromStore(StoreProductRequest storeProductRequest) {
+        storeProductRepository.delete(modelMapper.map(storeProductRequest, StoreProduct.class));
         return "";
     }
 }
