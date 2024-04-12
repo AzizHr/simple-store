@@ -33,7 +33,7 @@ public class StoreProductServiceImpl implements StoreProductService {
                 storeProductRequest.getProductId()
         ).orElseThrow(() -> new ItemNotFoundException("Product was not found with ID: "+ storeProductRequest.getProductId())));
 
-        return modelMapper.map(storeProductRepository.save(storeProduct), String.class);
+        return modelMapper.map(storeProductRepository.save(storeProduct), StoreProductResponse.class);
     }
 
     @Override
