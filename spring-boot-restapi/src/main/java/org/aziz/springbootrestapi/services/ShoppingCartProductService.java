@@ -6,5 +6,5 @@ import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 
 public interface ShoppingCartProductService {
     ShoppingCartProductResponse addProductToShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException;
-    void removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest);
+    void removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException;
 }

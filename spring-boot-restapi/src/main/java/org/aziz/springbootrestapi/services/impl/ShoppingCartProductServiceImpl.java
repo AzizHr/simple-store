@@ -37,7 +37,13 @@ public class ShoppingCartProductServiceImpl implements ShoppingCartProductServic
     }
 
     @Override
-    public void removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) {
-        shoppingCartProductRepository.delete(modelMapper.map(shoppingCartProductRequest, ShoppingCartProduct.class));
+    public void removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException {
+        if(shoppingCartRepository.findById(shoppingCartProductRequest.getShoppingCartId()).isPresent()) {
+            if(productRepository.findById(shoppingCartProductRequest.getProductId()).isPresent()) {
+                shoppingCartProductRepository.delete(modelMapper.map(shoppingCartProductRequest, ShoppingCartProduct.class));
+            }
+            throw new ItemNotFoundException("No product was found with ID: "+shoppingCartProductRequest.getProductId());
+        }
+        throw new ItemNotFoundException("No shoppingCart was found with ID: "+shoppingCartProductRequest.getShoppingCartId());
     }
 }
