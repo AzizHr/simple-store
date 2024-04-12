@@ -2,6 +2,7 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.StoreProductRequest;
+import org.aziz.springbootrestapi.dtos.response.StoreProductResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.models.StoreProduct;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
@@ -21,7 +22,7 @@ public class StoreProductServiceImpl implements StoreProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public String addProductToStore(StoreProductRequest storeProductRequest) throws ItemNotFoundException {
+    public StoreProductResponse addProductToStore(StoreProductRequest storeProductRequest) throws ItemNotFoundException {
         StoreProduct storeProduct = modelMapper.map(storeProductRequest, StoreProduct.class);
 
         storeProduct.setStore(storeRepository.findById(
