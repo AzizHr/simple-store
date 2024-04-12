@@ -37,8 +37,14 @@ public class StoreProductServiceImpl implements StoreProductService {
     }
 
     @Override
-    public void removeProductFromStore(StoreProductRequest storeProductRequest) {
-        storeProductRepository.delete(modelMapper.map(storeProductRequest, StoreProduct.class));
-        return "";
+    public void removeProductFromStore(StoreProductRequest storeProductRequest) throws ItemNotFoundException {
+
+        if(storeRepository.findById(storeProductRequest.getStoreId()).isPresent()) {
+            if(productRepository.findById(storeProductRequest.getProductId()).isPresent()) {
+                storeProductRepository.delete(modelMapper.map(storeProductRequest, StoreProduct.class));
+            }
+            throw new ItemNotFoundException("No product was found with ID: "+storeProductRequest.getProductId());
+        }
+        throw new ItemNotFoundException("No store was found with ID: "+storeProductRequest.getStoreId());
     }
 }
