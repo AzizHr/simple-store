@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.StoreRequest;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.models.Store;
+import org.aziz.springbootrestapi.repositories.SellerRepository;
 import org.aziz.springbootrestapi.repositories.StoreRepository;
 import org.aziz.springbootrestapi.services.StoreService;
 import org.springframework.stereotype.Service;
