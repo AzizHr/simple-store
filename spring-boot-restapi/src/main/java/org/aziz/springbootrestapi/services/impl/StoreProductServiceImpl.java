@@ -37,7 +37,7 @@ public class StoreProductServiceImpl implements StoreProductService {
     }
 
     @Override
-    public String removeProductFromStore(StoreProductRequest storeProductRequest) {
+    public void removeProductFromStore(StoreProductRequest storeProductRequest) {
         storeProductRepository.delete(modelMapper.map(storeProductRequest, StoreProduct.class));
         return "";
     }

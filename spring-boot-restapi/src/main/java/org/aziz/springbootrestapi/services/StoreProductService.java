@@ -6,5 +6,5 @@ import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 
 public interface StoreProductService {
     StoreProductResponse addProductToStore(StoreProductRequest storeProductRequest) throws ItemNotFoundException;
-    String removeProductFromStore(StoreProductRequest storeProductRequest);
+    void removeProductFromStore(StoreProductRequest storeProductRequest);
 }
