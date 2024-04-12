@@ -2,6 +2,7 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.StoreRequest;
+import org.aziz.springbootrestapi.dtos.response.StoreResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.models.Store;
 import org.aziz.springbootrestapi.repositories.SellerRepository;
@@ -17,7 +18,7 @@ public class StoreServiceImpl implements StoreService {
     private final SellerRepository sellerRepository;
 
     @Override
-    public String update(StoreRequest storeRequest) throws ItemNotFoundException {
+    public StoreResponse update(StoreRequest storeRequest) throws ItemNotFoundException {
         if(storeRepository.findById(storeRequest.getId()).isPresent()) {
             Store store = storeRepository.findById(storeRequest.getId()).get();
             store.setSeller(sellerRepository.findById(storeRequest.getSellerId()).orElseThrow(
