@@ -2,6 +2,7 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ShoppingCartProductRequest;
+import org.aziz.springbootrestapi.dtos.response.ShoppingCartProductResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.models.ShoppingCartProduct;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
@@ -21,7 +22,7 @@ public class ShoppingCartProductServiceImpl implements ShoppingCartProductServic
     private final ModelMapper modelMapper;
 
     @Override
-    public String addProductToShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException {
+    public ShoppingCartProductResponse addProductToShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException {
         ShoppingCartProduct shoppingCartProduct = modelMapper.map(shoppingCartProductRequest, ShoppingCartProduct.class);
 
         shoppingCartProduct.setShoppingCart(shoppingCartRepository.findById(
@@ -32,12 +33,11 @@ public class ShoppingCartProductServiceImpl implements ShoppingCartProductServic
                 shoppingCartProductRequest.getProductId()
         ).orElseThrow(() -> new ItemNotFoundException("Product was not found with ID: "+ shoppingCartProductRequest.getProductId())));
 
-        return modelMapper.map(shoppingCartProductRepository.save(shoppingCartProduct), String.class);
+        return modelMapper.map(shoppingCartProductRepository.save(shoppingCartProduct), ShoppingCartProductResponse.class);
     }
 
     @Override
-    public String removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) {
+    public void removeProductFromShoppingCart(ShoppingCartProductRequest shoppingCartProductRequest) {
         shoppingCartProductRepository.delete(modelMapper.map(shoppingCartProductRequest, ShoppingCartProduct.class));
-        return "";
     }
 }
