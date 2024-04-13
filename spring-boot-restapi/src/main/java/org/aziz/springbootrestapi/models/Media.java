@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aziz.springbootrestapi.enums.MediaType;
-
 import java.util.UUID;
 
 @Setter
