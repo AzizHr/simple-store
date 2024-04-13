@@ -20,4 +20,6 @@ public class Media {
     private String url;
     @Enumerated(EnumType.STRING)
     private MediaType type;
+    @ManyToOne
+    private Product product;
 }
