@@ -1,7 +1,13 @@
 package org.aziz.springbootrestapi.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.aziz.springbootrestapi.dtos.request.ShoppingCartRequest;
+import org.aziz.springbootrestapi.dtos.response.ShoppingCartResponse;
+import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.services.ShoppingCartService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,4 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/shopping-carts")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+
+    @PutMapping
+    public ResponseEntity<ShoppingCartResponse> update(@RequestBody ShoppingCartRequest shoppingCartRequest) throws ItemNotFoundException {
+        return ResponseEntity.ok(shoppingCartService.updateShoppingCart(shoppingCartRequest));
+    }
 }
