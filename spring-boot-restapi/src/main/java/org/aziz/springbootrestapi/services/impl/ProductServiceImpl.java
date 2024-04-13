@@ -2,13 +2,16 @@ package org.aziz.springbootrestapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.ProductRequest;
+import org.aziz.springbootrestapi.dtos.response.MediaResponse;
 import org.aziz.springbootrestapi.dtos.response.ProductResponse;
 import org.aziz.springbootrestapi.dtos.response.VariantResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.exceptions.ListIsEmptyException;
+import org.aziz.springbootrestapi.models.Media;
 import org.aziz.springbootrestapi.models.Product;
 import org.aziz.springbootrestapi.models.Variant;
 import org.aziz.springbootrestapi.repositories.CategoryRepository;
+import org.aziz.springbootrestapi.repositories.MediaRepository;
 import org.aziz.springbootrestapi.repositories.ProductRepository;
 import org.aziz.springbootrestapi.repositories.VariantRepository;
 import org.aziz.springbootrestapi.services.ProductService;
@@ -28,22 +31,32 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final VariantRepository variantRepository;
+    private final MediaRepository mediaRepository;
     private final ModelMapper modelMapper;
 
     @Override
     public ProductResponse save(ProductRequest productRequest) throws ItemNotFoundException {
         Product product = modelMapper.map(productRequest, Product.class);
         List<Variant> variants = productRequest.getVariants();
+        List<Media> mediaList = productRequest.getMediaList();
         if(categoryRepository.findById(productRequest.getCategoryId()).isPresent()) {
             product.setCategory(categoryRepository.findById(productRequest.getCategoryId()).get());
             Product savedProduct = productRepository.save(product);
             for(Variant variant : variants) {
                 variant.setProduct(savedProduct);
             }
+            for(Media media : mediaList) {
+                media.setProduct(savedProduct);
+            }
             List<Variant> savedVariants = variantRepository.saveAll(variants);
+            List<Media> savedMediaList = mediaRepository.saveAll(mediaList);
             ProductResponse productResponse = modelMapper.map(savedProduct, ProductResponse.class);
             productResponse.setVariants(savedVariants.stream()
                     .map(variant -> modelMapper.map(variant, VariantResponse.class))
+                    .collect(Collectors.toList()));
+
+            productResponse.setMediaList(savedMediaList.stream()
+                    .map(media -> modelMapper.map(media, MediaResponse.class))
                     .collect(Collectors.toList()));
             return productResponse;
         }
