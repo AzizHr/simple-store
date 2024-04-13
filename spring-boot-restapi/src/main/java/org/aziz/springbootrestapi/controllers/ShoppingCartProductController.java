@@ -6,10 +6,7 @@ import org.aziz.springbootrestapi.dtos.response.ShoppingCartProductResponse;
 import org.aziz.springbootrestapi.exceptions.ItemNotFoundException;
 import org.aziz.springbootrestapi.services.ShoppingCartProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,5 +17,11 @@ public class ShoppingCartProductController {
     @PostMapping("/add-product")
     public ResponseEntity<ShoppingCartProductResponse> addProduct(@RequestBody ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException {
         return ResponseEntity.ok(shoppingCartProductService.addProductToShoppingCart(shoppingCartProductRequest));
+    }
+
+    @DeleteMapping("/remove-product")
+    public ResponseEntity<String> removeProduct(@RequestBody ShoppingCartProductRequest shoppingCartProductRequest) throws ItemNotFoundException {
+        shoppingCartProductService.removeProductFromShoppingCart(shoppingCartProductRequest);
+        return ResponseEntity.ok("Product was removed successfully");
     }
 }
