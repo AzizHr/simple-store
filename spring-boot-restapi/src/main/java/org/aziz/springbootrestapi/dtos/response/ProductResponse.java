@@ -21,4 +21,5 @@ public class ProductResponse {
     private String type;
     private CategoryResponse category;
     private List<VariantResponse> variants;
+    private List<MediaResponse> mediaList;
 }
