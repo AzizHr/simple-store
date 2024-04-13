@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aziz.springbootrestapi.models.Media;
 import org.aziz.springbootrestapi.models.Variant;
 import java.util.List;
 import java.util.UUID;
@@ -31,4 +32,5 @@ public class ProductRequest {
     @NotEmpty(message = "المرجو إضافة فئة المنتج")
     private UUID categoryId;
     private List<Variant> variants;
+    private List<Media> mediaList;
 }
