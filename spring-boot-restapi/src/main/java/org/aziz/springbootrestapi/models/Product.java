@@ -26,6 +26,8 @@ public class Product {
     private Category category;
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Variant> variants;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Media> mediaList;
     @OneToMany(mappedBy = "product")
     private List<ShoppingCartProduct> shoppingCarts;
     @OneToMany(mappedBy = "product")
