@@ -95,6 +95,81 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<ProductResponse> findAllByNameLikeOrDescriptionLike(String name, String description, Pageable pageable) throws ListIsEmptyException {
+        Page<Product> productPage = productRepository.findAllByNameLikeOrDescriptionLike(name, description, pageable);
+
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
+    }
+
+    @Override
+    public Page<ProductResponse> filterByCategoryName(String categoryName, Pageable pageable) throws ListIsEmptyException {
+        Page<Product> productPage = productRepository.findAllByCategoryName(categoryName, pageable);
+
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
+    }
+
+    @Override
+    public Page<ProductResponse> findAllByCategoryNameLike(String categoryName, Pageable pageable) throws ListIsEmptyException {
+        Page<Product> productPage = productRepository.findAllByCategoryNameLike(categoryName, pageable);
+
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
+    }
+
+    @Override
+    public Page<ProductResponse> filterByType(String type, Pageable pageable) throws ListIsEmptyException {
+        Page<Product> productPage = productRepository.findAllByType(type, pageable);
+
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
+    }
+
+    @Override
+    public Page<ProductResponse> findAllByTypeLike(String type, Pageable pageable) throws ListIsEmptyException {
+        Page<Product> productPage = productRepository.findAllByTypeLike(type, pageable);
+
+        if(productPage.getContent().isEmpty())
+            throw new ListIsEmptyException("No products found");
+        return new PageImpl<>(
+                productPage.getContent().stream()
+                        .map(product -> modelMapper.map(product, ProductResponse.class))
+                        .collect(Collectors.toList()),
+                productPage.getPageable(),
+                productPage.getTotalElements()
+        );
+    }
+
+    @Override
     public Page<ProductResponse> findAllByCategoryId(UUID categoryId, Pageable pageable) throws ListIsEmptyException {
         Page<Product> productPage = productRepository.findAllByCategoryId(categoryId, pageable);
 
