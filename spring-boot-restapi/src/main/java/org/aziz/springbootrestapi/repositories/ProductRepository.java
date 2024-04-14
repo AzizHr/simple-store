@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, UUID> {
     Page<Product> findAllByCategoryId(UUID categoryId, Pageable pageable);
     Page<Product> findAllByNameLikeOrDescriptionLike(String name, String description, Pageable pageable);
+    Page<Product> findAllByCategoryName(String categoryName, Pageable pageable);
 }
