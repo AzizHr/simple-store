@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.UUID;
 
 @RestController
@@ -49,5 +48,30 @@ public class ProductController {
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<Page<ProductResponse>> products(@PathVariable UUID categoryId, Pageable pageable) throws ListIsEmptyException {
         return ResponseEntity.ok(productService.findAllByCategoryId(categoryId, pageable));
+    }
+
+    @GetMapping("/search?name?description")
+    public ResponseEntity<Page<ProductResponse>> searchByNameOrDescription(@RequestParam String name, @RequestParam String description, Pageable pageable) throws ListIsEmptyException {
+        return ResponseEntity.ok(productService.findAllByNameLikeOrDescriptionLike(name, description, pageable));
+    }
+
+    @GetMapping("/search?categoryName")
+    public ResponseEntity<Page<ProductResponse>> searchByCategoryName(@RequestParam String categoryName, Pageable pageable) throws ListIsEmptyException {
+        return ResponseEntity.ok(productService.findAllByCategoryNameLike(categoryName, pageable));
+    }
+
+    @GetMapping("/search?type")
+    public ResponseEntity<Page<ProductResponse>> searchByType(@RequestParam String type, Pageable pageable) throws ListIsEmptyException {
+        return ResponseEntity.ok(productService.findAllByTypeLike(type, pageable));
+    }
+
+    @GetMapping("/filter?categoryName")
+    public ResponseEntity<Page<ProductResponse>> filterByCategoryName(@RequestParam String categoryName, Pageable pageable) throws ListIsEmptyException {
+        return ResponseEntity.ok(productService.filterByCategoryName(categoryName, pageable));
+    }
+
+    @GetMapping("/filter?type")
+    public ResponseEntity<Page<ProductResponse>> filterByType(@RequestParam String type, Pageable pageable) throws ListIsEmptyException {
+        return ResponseEntity.ok(productService.filterByType(type, pageable));
     }
 }
