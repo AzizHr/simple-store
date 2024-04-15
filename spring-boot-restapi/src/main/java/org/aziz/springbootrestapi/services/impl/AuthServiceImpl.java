@@ -3,6 +3,7 @@ package org.aziz.springbootrestapi.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.dtos.request.AuthRequest;
 import org.aziz.springbootrestapi.dtos.response.AuthResponse;
+import org.aziz.springbootrestapi.exceptions.UsernameNotFoundException;
 import org.aziz.springbootrestapi.models.User;
 import org.aziz.springbootrestapi.repositories.UserRepository;
 import org.aziz.springbootrestapi.security.Authenticator;
@@ -18,7 +19,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtService jwtService;
 
     @Override
-    public AuthResponse authenticate(AuthRequest authRequest) {
+    public AuthResponse authenticate(AuthRequest authRequest) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(authRequest.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Email or password not valid"));
 
