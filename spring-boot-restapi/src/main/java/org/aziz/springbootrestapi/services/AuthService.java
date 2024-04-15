@@ -1,5 +1,8 @@
 package org.aziz.springbootrestapi.services;
 
-public interface AuthService {
+import org.aziz.springbootrestapi.dtos.request.AuthRequest;
+import org.aziz.springbootrestapi.dtos.response.AuthResponse;
 
+public interface AuthService {
+    AuthResponse authenticate(AuthRequest authRequest);
 }
