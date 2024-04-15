@@ -1,5 +1,6 @@
 package org.aziz.springbootrestapi.security;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.models.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Authenticator implements UserDetails {
 
     private User user;
