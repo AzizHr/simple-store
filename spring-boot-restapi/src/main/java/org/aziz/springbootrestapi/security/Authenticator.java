@@ -1,7 +1,6 @@
 package org.aziz.springbootrestapi.security;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.aziz.springbootrestapi.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
