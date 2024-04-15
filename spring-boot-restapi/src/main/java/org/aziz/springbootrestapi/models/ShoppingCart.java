@@ -24,5 +24,5 @@ public class ShoppingCart {
     @OneToOne(mappedBy = "shoppingCart")
     private Order order;
     @OneToOne
-    private Customer customer;
+    private User customer;
 }
