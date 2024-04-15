@@ -5,12 +5,17 @@ import org.aziz.springbootrestapi.dtos.request.AuthRequest;
 import org.aziz.springbootrestapi.dtos.request.RegisterRequest;
 import org.aziz.springbootrestapi.dtos.response.AuthResponse;
 import org.aziz.springbootrestapi.dtos.response.RegisterResponse;
+import org.aziz.springbootrestapi.exceptions.EmailAlreadyInUseException;
 import org.aziz.springbootrestapi.exceptions.UsernameNotFoundException;
+import org.aziz.springbootrestapi.models.Address;
 import org.aziz.springbootrestapi.models.User;
+import org.aziz.springbootrestapi.repositories.AddressRepository;
 import org.aziz.springbootrestapi.repositories.UserRepository;
 import org.aziz.springbootrestapi.security.Authenticator;
 import org.aziz.springbootrestapi.security.JwtService;
 import org.aziz.springbootrestapi.services.AuthService;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +23,10 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
     private final JwtService jwtService;
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AuthResponse authenticate(AuthRequest authRequest) throws UsernameNotFoundException {
@@ -33,24 +41,17 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RegisterResponse register(RegisterRequest registerRequest) throws UsernameNotFoundException {
+    public RegisterResponse register(RegisterRequest registerRequest) throws EmailAlreadyInUseException {
         if(userRepository.findUserByEmail(registerRequest.getEmail()).isPresent()) {
-            throw new EmailAlreadyInUseException("This email is already in use");
+            throw new EmailAlreadyInUseException();
         } else {
-            Manager manager = modelMapper.map(managerRegisterDTO, Manager.class);
-            manager.setRole(Role.MANAGER);
-            manager.setStatus(StatusType.OFFLINE);
-            manager.setSchool(schoolRepository.findById(managerRegisterDTO.getSchoolId()).orElseThrow(() -> new NotFoundException("No school found")));
-            manager.setPassword(passwordEncoder.encode(managerRegisterDTO.getPassword()));
-            if (managerRegisterDTO.getImage() != null) {
-                String imageUrl = cloudinaryService.uploadFile(managerRegisterDTO.getImage());
-                manager.setImage(imageUrl);
-            }
-            managerRepository.save(manager);
-            RegisterResponse registerResponse = new RegisterResponse();
-            registerResponse.setUserResponse(modelMapper.map(manager, UserResponse.class));
-            registerResponse.setMessage("Your account created with success");
-            return registerResponse;
+            User user = modelMapper.map(registerRequest, User.class);
+            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+            User registeredUser = userRepository.save(user);
+            Address address = registerRequest.getAddress();
+            address.setUser(registeredUser);
+            addressRepository.save(address);
+            return modelMapper.map(user, RegisterResponse.class);
         }
     }
 }
