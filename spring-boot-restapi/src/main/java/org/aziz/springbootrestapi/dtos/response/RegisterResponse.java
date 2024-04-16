@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.aziz.springbootrestapi.models.Address;
 import java.util.UUID;
 
 @Setter
@@ -16,5 +15,5 @@ public class RegisterResponse {
     private String firstName;
     private String lastName;
     private String email;
-    private Address address;
+    private AddressResponse address;
 }
